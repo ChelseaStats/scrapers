@@ -10,6 +10,11 @@ $PENALTYexg	= 0.85;
 $OWNGOALexg	= 0.85;
 $DRIBBLEexg	= 1.11;
 
+function getExpValue($type,$value,$adj) {
+       $exg = $type * exp($value * $adj);
+return $exg;
+}
+
 
 //$address = 829742;
 	$address = $_POST['address'];
@@ -139,13 +144,13 @@ $DRIBBLEexg	= 1.11;
 					echo " ".$concatenatea;
 //calc exG
 					$equation = $concatenatea.$concatenateb;
-					if($equation == 'HEADER')	{$exg = $HEADERexg*exp(-0.27* $adjdistance);}
-					if($equation == 'CROSS')	{$exg = $CROSSexg*exp(-0.19* $adjdistance);}
-					if($equation == 'REGULAR')	{$exg = $REGULARexg*exp(-0.13* $adjdistance);}
-					if($equation == 'CROSSHEADER')	{$exg = $CROSSHEADERexg*exp(-0.21* $adjdistance);}
-					if($equation == 'PENALTY')	{$exg = $PENALTYexg;}
-					if($equation == 'OWNGOAL')	{$exg = $OWNGOALexg*exp(-0.13* $adjdistance); $og =1;}
-					if($equation == 'DRIBBLE')	{$exg = $DRIBBLEexg*exp(-0.10* $adjdistance);}
+					if($equation == 'HEADER')	{$exg = getExpValue($HEADERexg,"-0.27",$adjdistance);}
+					if($equation == 'CROSS')	{$exg = getExpValue($CROSSexg,"-0.19",$adjdistance);}
+					if($equation == 'REGULAR')	{$exg = getExpValue($REGULARexg,"-0.13",$adjdistance);}
+					if($equation == 'CROSSHEADER')	{$exg = getExpValue($CROSSHEADERexg,"-0.21",$adjdistance);}
+					if($equation == 'PENALTY')	{$exg = $PENALTYexg;
+					if($equation == 'OWNGOAL')	{$exg = getExpValue($OWNGOALexg,"-0.13",$adjdistance); $og =1;}
+					if($equation == 'DRIBBLE')	{$exg = getExpValue($DRIBBLEexg,"-0.10",$adjdistance);}
 					echo " exG = ".round($exg,2);
 					if($og==1){
 						if($team == trim($names[1])){$totexghome = $totexghome + $exg;}
@@ -181,13 +186,13 @@ $DRIBBLEexg	= 1.11;
 					echo " ".$concatenateb;
 //calc exG
 					$equation = $concatenatea.$concatenateb;
-					if($equation == 'HEADER')		{$exg = $HEADERexg*exp(-0.27* $adjdistance);}
-					if($equation == 'CROSS')		{$exg = $CROSSexg*exp(-0.19* $adjdistance);}
-					if($equation == 'REGULAR')		{$exg = $REGULARexg*exp(-0.13* $adjdistance);}
-					if($equation == 'CROSSHEADER')		{$exg = $CROSSHEADERexg*exp(-0.21* $adjdistance);}
+					if($equation == 'HEADER')		{$exg = getExpValue($HEADERexg,"-0.27",$adjdistance);}
+					if($equation == 'CROSS')		{$exg = getExpValue($CROSSexg,"-0.19",$adjdistance);}
+					if($equation == 'REGULAR')		{$exg = getExpValue($REGULARexg,"-0.13",$adjdistance);}
+					if($equation == 'CROSSHEADER')		{$exg = getExpValue($CROSSHEADERexg,"-0.21",$adjdistance);}
 					if($equation == 'PENALTY')		{$exg = $PENALTYexg;}
-					if($equation == 'OWNGOAL')		{$exg = $OWNGOALexg*exp(-0.13* $adjdistance); $og =1;}
-					if($equation == 'DRIBBLE')		{$exg = $DRIBBLEexg*exp(-0.10* $adjdistance);}
+					if($equation == 'OWNGOAL')		{$exg = getExpValue($OWNGOALexg,"-0.13",$adjdistance); $og =1;}
+					if($equation == 'DRIBBLE')		{$exg = getExpValue($DRIBBLEexg,"-0.10",$adjdistance);}
 					echo " exG = ".round($exg,2);
 					if($og==1){
 						if($team == trim($names[1])){$totexghome = $totexghome + $exg;}
